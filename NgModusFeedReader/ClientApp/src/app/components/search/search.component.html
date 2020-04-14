@@ -3,31 +3,39 @@
     <div class="col-md-12">
         <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
         <div class="form-row align-items-center">
-            <div class="col-auto">
-                <input type="text" placeholder="Search..."
-                       [(ngModel)]="searchCriteria"
-                       class="form-control mb-10" />
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-success mb-2" (click)="searchFeedItems()">Search</button>
-
-            </div>
-        </div>
-            <hr />
-
-            <div *ngIf="feedItemResults">
-                <b>Results:</b><br />
-                <hr />
-                <div *ngFor="let feedItem of feedItemResults">
-                    <b>{{feedItem.heading}}</b>
-                    <br />
-                    <p>{{feedItem.shortDescription}}</p>
-                    <p>{{feedItem.longDescription}}</p>
-                    <p class="text-right">Published: {{ feedItem.datePublished | date}}</p>
-                    <hr />
+            <form (submit)="searchFeedItems()" #searchForm="ngForm" novalidate class="form-inline">
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" placeholder="Search..."
+                           [(ngModel)]="searchCriteria"
+                           name="search"
+                           #search="ngModel"
+                           class="form-control"
+                           required />
                 </div>
-            </div>
+                
+                    <input type="submit"
+                           [disabled]="searchForm.invalid"
+                           class="btn btn-primary mb-2"
+                           value="Search" />
 
-
+                
+            </form>
         </div>
+        <hr />
+
+        <div *ngIf="feedItemResults">
+            <b>Results:</b><br />
+            <hr />
+            <div *ngFor="let feedItem of feedItemResults">
+                <b>{{feedItem.heading}}</b>
+                <br />
+                <p>{{feedItem.shortDescription}}</p>
+                <p>{{feedItem.longDescription}}</p>
+                <p class="text-right">Published: {{ feedItem.datePublished | date}}</p>
+                <hr />
+            </div>
+        </div>
+
+
+    </div>
 </div>

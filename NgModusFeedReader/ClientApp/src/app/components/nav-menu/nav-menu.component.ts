@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from "../../services/dataService";
 import { Router } from '@angular/router';
 
@@ -9,6 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+
+  
+
+  ngOnInit() {
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  }
+
   isExpanded = false;
 
   collapse() {
@@ -21,6 +31,7 @@ export class NavMenuComponent {
 
   logout() {
     //cheating....
+
     localStorage.removeItem("jwtToken");
     this.router.navigate([""]);
 

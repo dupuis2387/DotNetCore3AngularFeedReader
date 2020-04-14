@@ -4,4 +4,5 @@ export interface IFeedItem {
   shortDescription: string;
   longDescription: string;
   datePublished: Date;
+  youtubeVideoId: string;
 }

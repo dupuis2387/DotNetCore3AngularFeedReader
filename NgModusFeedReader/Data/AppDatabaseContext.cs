@@ -9,7 +9,6 @@ namespace ModusCreateSampleApp.Data
     {
         public DbSet<Feed> Feeds { get; set; }
         public DbSet<FeedItem> FeedItems { get; set; }
-        public DbSet<FeedCategory> FeedCategories { get; set; }
         public DbSet<FeedUserSubscription> FeedUserSubscriptions { get; set; }
 
         public AppDatabaseContext(DbContextOptions<AppDatabaseContext> options)

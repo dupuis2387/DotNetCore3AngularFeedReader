@@ -16,50 +16,39 @@ namespace ModusCreateSampleApp.Data
             _context = context;
         }
 
+        
+
         /// <summary>
-        /// Seed with sample categories
+        /// Seed with sample feeds
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<FeedCategory> SeedCategories()
+        private IEnumerable<Feed> SeedFeeds()
         {
-            //if we dont have categories, we can have feeds, and we cant have feed items
-            //so, seed them
-            IList<string> categories = new List<string>()
+
+            //seed some sample feeds
+            IList<string> sampleFeedCategories = new List<string>()
                 {
                     "Movies",
                     "News",
-                    "Astrology"
+                    "Astrology",
+                    "Gaming",
+                    "Gardening"
                 };
-            foreach (var category in categories)
-            {
-                _context.FeedCategories.Add(new FeedCategory()
-                {
-                    Name = category
-                });
-            }
-            _context.SaveChanges();
-            return _context.FeedCategories.AsEnumerable();
-        }
-
-        /// <summary>
-        /// Seed with sample feeds belonging to categories
-        /// </summary>
-        /// <param name="categories"></param>
-        /// <returns></returns>
-        private IEnumerable<Feed> SeedFeeds(IEnumerable<FeedCategory> categories)
-        {
-            foreach (var category in categories)
+            foreach (var category in sampleFeedCategories)
             {
                 _context.Feeds.Add(new Feed()
                 {
-                    FeedCategory = category,
-                    Name = $"An Arbitrary {category.Name} Feed",
-                    ShortDescription = $"This is a short {category.Name} feed description",
-                    LongDescription = $"This is a long feed description. A lot of text could go in this {category.Name} feed description",
+
+                    Name = category,
+                    ShortDescription = $"This is a short {category} feed description",
+                    LongDescription = $"A lot of text could go in this {category} feed description",
                 });
             }
             _context.SaveChanges();
             return _context.Feeds.AsEnumerable();
+
+
+            
         }
 
         /// <summary>
@@ -70,15 +59,44 @@ namespace ModusCreateSampleApp.Data
         {
             foreach (var feed in Feeds)
             {
-
-                _context.FeedItems.Add(new FeedItem()
+                switch (feed.Name)
                 {
-                    DatePublished = DateTime.Now,
-                    Feed = feed,
-                    Heading = $"Insane {feed.FeedCategory.Name} secrets that will drive you insane!",
-                    ShortDescription = $"Read below to get more information about these *Crazy* {feed.FeedCategory.Name} secrets.",
-                    LongDescription = $"Oh, so you're actually interested in these {feed.FeedCategory.Name} secrets? Is there something wrong with you? If so, please enter you credit card number below, and we'll ship you a mystical candle, with healing powers that'll cure you in no time! All for $999,999.99. Act Now!"
-                });
+                    case "Astrology":
+                        _context.FeedItems.Add(new FeedItem()
+                        {
+                            DatePublished = DateTime.Now.AddHours(1),
+                            Feed = feed,
+                            Heading = $"Insane {feed.Name} secrets that will drive you insane!",
+                            ShortDescription = $"Read below to get more information about these *Crazy* {feed.Name} secrets.",
+                            LongDescription = $"Oh, so you're actually interested in these {feed.Name} secrets? Is there something wrong with you? If so, please enter you credit card number below, and we'll ship you a mystical candle, with healing powers that'll cure you in no time! All for $999,999.99. Act Now!"
+                        });
+                        break;
+                    case "Gaming":
+                        _context.FeedItems.Add(new FeedItem()
+                        {
+                            DatePublished = DateTime.Now.AddDays(-1),
+                            Feed = feed,
+                            Heading = $"OMG Control!!",
+                            YoutubeVideoId = "DGtuQRohHds",
+                            ShortDescription = $"The game Control is *INSANE*. You have to play it!!!!!!",
+                            LongDescription = $"There's this crazy Ashtray Maze level, and the soundtrack that feeds it is like everything i could want in life. Seriously, you have to check it out!!!"
+                        });
+                        break;
+                    default:
+                        _context.FeedItems.Add(new FeedItem()
+                        {
+                            DatePublished = DateTime.Now,
+                            Feed = feed,
+                            Heading = $"Just a typical {feed.Name} feed heading!",
+                            ShortDescription = $"A short {feed.Name} description could go here.",
+                            LongDescription = $"A long {feed.Name} description could go here."
+                        });
+                        break;
+
+
+                }
+
+                
             }
             _context.SaveChanges();
 
@@ -93,12 +111,11 @@ namespace ModusCreateSampleApp.Data
             _context.Database.EnsureCreated();
 
 
-            //check if we have category data
-            if (!_context.FeedCategories.Any())
+            //check if we have feeds
+            if (!_context.Feeds.Any())
             {
                 //if we don't, we don't have anything else either. so, do it up!
-                var seededCategories = SeedCategories();
-                var seededFeeds = SeedFeeds(seededCategories);
+                var seededFeeds = SeedFeeds();
                 SeedFeedItems(seededFeeds);
 
             }

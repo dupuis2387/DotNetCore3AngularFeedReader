@@ -8,23 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ModusCreateSampleApp.Data
 {
-
-
-
-
-
     public interface IAppDbRepository
     {
-        IEnumerable<FeedCategory> GetAllCategories();
+        
         IEnumerable<FeedWrapper> GetFeeds(int? feedId, string userId);
-        IEnumerable<Feed> GetFeedByCategory(string categoryName);
         IEnumerable<FeedItem> GetFeedItemsByFeedId(int feedId);
         IEnumerable<FeedItem> SearchFeedItems(string searchTerm);
         IEnumerable<FeedItem> GetAllFeedItems();
     }
 
-
-
+    
 
     public class AppDbRepository : IAppDbRepository
     {
@@ -68,24 +61,7 @@ namespace ModusCreateSampleApp.Data
             }
         }
 
-        /// <summary>
-        /// Get all feed categories
-        /// </summary>
-        /// <returns>An <see cref="T:IEnumerable"/> of all <see cref="FeedCategory"/> or null if an exception takes place. The exception is logged</returns>
-        public IEnumerable<FeedCategory> GetAllCategories()
-        {
-            try
-            {
-                return _appDbContext.FeedCategories
-                    .OrderBy(category => category.Name)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"GetAllCategories threw an error: {ex}");
-                return null;
-            }
-        }
+        
 
         /// <summary>
         /// Get all <see cref="T:Feed"/>s
@@ -106,7 +82,6 @@ namespace ModusCreateSampleApp.Data
                             Subscribed = f.FeedUserSubscriptions.Where(s => s.UserSubscriberId == userId).Any(),
                             Id = f.Id,
                             Name = f.Name,
-                            FeedCategory = f.FeedCategory,
                             ShortDescription = f.ShortDescription,
                             LongDescription = f.LongDescription
 
@@ -123,7 +98,6 @@ namespace ModusCreateSampleApp.Data
                             Subscribed = f.FeedUserSubscriptions.Where(s => s.UserSubscriberId == userId).Any(),
                             Id = f.Id,
                             Name = f.Name,
-                            FeedCategory = f.FeedCategory,
                             ShortDescription = f.ShortDescription,
                             LongDescription = f.LongDescription
 
@@ -144,26 +118,7 @@ namespace ModusCreateSampleApp.Data
 
 
 
-        /// <summary>
-        /// Get all the <see cref="T:Feed"/>s for a given <see cref="T:FeedCategory"/> name
-        /// </summary>
-        /// <param name="categoryName">A <see cref="T:FeedCategory"/> name that a feed belongs to</param>
-        /// <returns>An <see cref="T:IEnumerable"/> of <see cref="T:Feed"/>s that belongs to a specific category name or null if an exception takes place. The exception is logged</returns>
-        public IEnumerable<Feed> GetFeedByCategory(string categoryName)
-        {
-            try
-            {
-                return _appDbContext.Feeds
-                    //use the navigation prop to categories, to fetch feeds associated with a given category name
-                    .Where(feed => feed.FeedCategory.Name == categoryName)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"GetFeedByCategory, with categoryName='{categoryName}' threw an error: {ex}");
-                return null;
-            }
-        }
+        
 
         /// <summary>
         /// Get all individual <see cref="T:FeedItem"/>s for a given feed id of a <see cref="Feed"/>

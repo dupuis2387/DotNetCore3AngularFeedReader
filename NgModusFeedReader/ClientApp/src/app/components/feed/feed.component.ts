@@ -1,29 +1,42 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/dataService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IFeed } from '../../data/entities/IFeed';
+import { Subscription } from 'rxjs';
 
 
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnDestroy {
 
   constructor(private data: DataService, private route: ActivatedRoute) { }
 
   private feeds: IFeed[];
   private errorMessage: string = "";
 
-  @Input() id:any;
+  private feedListingSubscription: Subscription;
+  private subscribeAttempt: Subscription;
+  private unsubscribeAttempt: Subscription;
 
-  ngOnInit(): void {
+  ngOnDestroy() {
+    
+    if (this.feedListingSubscription)
+      this.feedListingSubscription.unsubscribe();
 
-    //if we dont have a parent category param, load all feeds
-    const feedId = this.route.snapshot.paramMap.get("id") || this.id;
+    if (this.subscribeAttempt)
+      this.subscribeAttempt.unsubscribe();
 
-    this.data
-      .getFeeds(feedId)
+    if (this.unsubscribeAttempt)
+      this.unsubscribeAttempt.unsubscribe();
+    
+  }
+
+  ngOnInit(): void {   
+
+    this.feedListingSubscription = this.data
+      .getFeeds()
       .subscribe(data => {
         if (data) {
           this.feeds = data;
@@ -32,27 +45,24 @@ export class FeedComponent implements OnInit {
   }
 
   subscribeToFeed(feed): void {
-    this.data
+    this.subscribeAttempt = this.data
       .subscribeToFeed(feed.id)
       .subscribe(data => {
-        console.log("subscribe", data);
+        
         feed.subscribed = true;
         if (data) {
-          //this.feeds = data;
-          console.log(feed);
-          
+        
         }
       }, err => this.errorMessage = "Failed to subscribe to feed :(");
   }
   unsubscribeFromFeed(feed): void {
-    this.data
+    this.unsubscribeAttempt = this.data
       .unSubscribeFromFeed(feed.id)
       .subscribe(data => {
-        console.log("unsubscribe", data);
+        
         feed.subscribed = false;
         if (data) {
-          //this.feeds = data;
-          console.log(feed);
+          
 
         }
       }, err => this.errorMessage = "Failed to unsubscribe from feed :(");

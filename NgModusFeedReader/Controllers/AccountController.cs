@@ -59,28 +59,7 @@ namespace NgModusFeedReader.Controllers
             _config = config;
         }
 
-        /*[HttpPost("[action]")]
-        public async Task<IActionResult> Login(LoginViewModel loginModel)
-        {
-            _logger.LogInformation($"Attmpeting to login: {loginModel.Email} @ {DateTime.Now}");
-            if (ModelState.IsValid)
-            {
-                //dont lockout on failed attempts
-                var loginAttempt = await _signInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, false,false);
-
-                if (loginAttempt.Succeeded)
-                {
-                    _logger.LogInformation($"Successfully logged in: {loginModel.Email} @ {DateTime.Now}");
-                }
-                else
-                {
-                    _logger.LogInformation($"Failed login attempt for: {loginModel.Email} @ {DateTime.Now}");
-                }
-            }
-
-            ModelState.AddModelError("", "Invalid login attempt");
-            return BadRequest("Wrong username or password");
-        }*/
+        
 
 
         [HttpPost("[action]")]
@@ -118,12 +97,7 @@ namespace NgModusFeedReader.Controllers
         }
 
 
-        /*[HttpGet]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return Ok();
-        }*/
+        
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)

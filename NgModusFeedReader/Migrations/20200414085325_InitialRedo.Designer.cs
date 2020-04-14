@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModusCreateSampleApp.Data;
 
 namespace NgModusFeedReader.Migrations
 {
     [DbContext(typeof(AppDatabaseContext))]
-    partial class AppDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200414085325_InitialRedo")]
+    partial class InitialRedo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,9 +152,6 @@ namespace NgModusFeedReader.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("FeedCategoryId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("LongDescription")
                         .HasColumnType("TEXT");
 
@@ -164,23 +163,7 @@ namespace NgModusFeedReader.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FeedCategoryId");
-
                     b.ToTable("Feeds");
-                });
-
-            modelBuilder.Entity("ModusCreateSampleApp.Data.Entities.FeedCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FeedCategories");
                 });
 
             modelBuilder.Entity("ModusCreateSampleApp.Data.Entities.FeedItem", b =>
@@ -345,13 +328,6 @@ namespace NgModusFeedReader.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ModusCreateSampleApp.Data.Entities.Feed", b =>
-                {
-                    b.HasOne("ModusCreateSampleApp.Data.Entities.FeedCategory", "FeedCategory")
-                        .WithMany()
-                        .HasForeignKey("FeedCategoryId");
                 });
 
             modelBuilder.Entity("ModusCreateSampleApp.Data.Entities.FeedItem", b =>

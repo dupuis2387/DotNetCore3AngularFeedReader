@@ -46,19 +46,7 @@ namespace NgModusFeedReader.Controllers
             _userManager = userManager;
         }
                             
-        [HttpGet("[action]")]
-        public IActionResult FeedCategories()
-        {
-            try
-            {
-                return Ok(_repo.GetAllCategories());
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError($"FeedCategories threw an error: {ex}");
-                return BadRequest();
-            }
-        }
+        
 
         
 
@@ -95,7 +83,7 @@ namespace NgModusFeedReader.Controllers
 
 
         //Note: I know this should be HttpDelete but I think there's breaking changed in AspnetCore 3 that
-        //seemingly doesnt allow this to work. So, I'm cheating
+        //seemingly dont allow this to work. So, I'm cheating, to not waste more time
         [HttpPost("[action]")]
         public async Task<IActionResult> Unsubscribe([FromBody] int feedId)
         {

@@ -34,12 +34,7 @@ namespace NgModusFeedReader.Data.Services
         public IEnumerable<FeedItem> GetSubscriberFeedStream(string userId)
         {
 
-            return /*_appDbContext.FeedUserSubscriptions
-                    .Where(u => u.UserSubscriberId == userId)
-                    .Select(u => u.Feed)
-                    .OrderBy(x => x.Name);*/
-
-            _appDbContext.FeedUserSubscriptions
+            return  _appDbContext.FeedUserSubscriptions
                         .Where(u => u.UserSubscriberId == userId)
                         .Select(u => u.Feed)
                         .SelectMany(f => f.FeedItems)

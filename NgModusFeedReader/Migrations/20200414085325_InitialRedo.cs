@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NgModusFeedReader.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialRedo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,16 +49,18 @@ namespace NgModusFeedReader.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FeedCategories",
+                name: "Feeds",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    ShortDescription = table.Column<string>(nullable: true),
+                    LongDescription = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FeedCategories", x => x.Id);
+                    table.PrimaryKey("PK_Feeds", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,28 +170,6 @@ namespace NgModusFeedReader.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Feeds",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    ShortDescription = table.Column<string>(nullable: true),
-                    LongDescription = table.Column<string>(nullable: true),
-                    FeedCategoryId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Feeds", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Feeds_FeedCategories_FeedCategoryId",
-                        column: x => x.FeedCategoryId,
-                        principalTable: "FeedCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "FeedItems",
                 columns: table => new
                 {
@@ -279,11 +259,6 @@ namespace NgModusFeedReader.Migrations
                 column: "FeedId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Feeds_FeedCategoryId",
-                table: "Feeds",
-                column: "FeedCategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FeedUserSubscriptions_FeedId",
                 table: "FeedUserSubscriptions",
                 column: "FeedId");
@@ -320,9 +295,6 @@ namespace NgModusFeedReader.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "FeedCategories");
         }
     }
 }

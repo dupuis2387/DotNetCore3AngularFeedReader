@@ -9,12 +9,7 @@ namespace ModusCreateSampleApp.Data.Entities
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
-
-        /// <summary>
-        /// category it belongs to
-        /// </summary>
-        public virtual FeedCategory FeedCategory { get; set; }
-
+        
         /// <summary>
         /// child feed items
         /// </summary>

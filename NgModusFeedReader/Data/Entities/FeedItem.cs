@@ -9,6 +9,8 @@ namespace ModusCreateSampleApp.Data.Entities
         public string LongDescription { get; set; }
         public DateTime DatePublished { get; set; }
 
+        public string YoutubeVideoId { get; set; }
+
         /// <summary>
         /// navigation prop for parent feed stream
         /// </summary>
@@ -18,5 +20,7 @@ namespace ModusCreateSampleApp.Data.Entities
         /// Id reference for parent feed stream
         /// </summary>
         public int FeedId { get; set; }
+
+        
     }
 }

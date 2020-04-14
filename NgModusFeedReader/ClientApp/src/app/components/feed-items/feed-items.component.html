@@ -6,7 +6,11 @@
             <br />
             <p>{{feedItem.shortDescription}}</p>
             <p>{{feedItem.longDescription}}</p>
-            
+
+            <p *ngIf="feedItem.youtubeVideoId">
+                <yt-video videoid="{{feedItem.youtubeVideoId}}"></yt-video>
+
+            </p>
             <hr />
         </div>
     </div>

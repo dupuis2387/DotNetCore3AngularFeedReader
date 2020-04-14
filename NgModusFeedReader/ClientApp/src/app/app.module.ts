@@ -13,6 +13,8 @@ import { FeedComponent } from './components/feed/feed.component';
 import { FeedItemsComponent } from './components/feed-items/feed-items.component';
 import { SearchComponent } from './components/search/search.component';
 import { DataService } from './services/dataService';
+import { VideoComponent } from './components/youtube-video/youtube-video-component';
+
 
 
 const routes = [
@@ -34,7 +36,8 @@ const routes = [
     FeedItemsComponent,
     LoginComponent,
     RegisterComponent,
-    SearchComponent
+    SearchComponent,
+    VideoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

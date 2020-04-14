@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
         <div *ngFor="let feed of feeds">
-            <a href="#">{{feed.name}}</a>
+            <b>{{feed.name}}</b>
             <br />
             <p>{{feed.shortDescription}}</p>
             <p>{{feed.longDescription}}</p>
