@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-12">
+        <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+        <div *ngFor="let feed of feeds">
+            <a href="#">{{feed.name}}</a>
+            <br />
+            <p>{{feed.shortDescription}}</p>
+            <p>{{feed.longDescription}}</p>
+            <p style="text-align:right">
+                <button *ngIf="!feed.subscribed" class="btn btn-info" (click)="subscribeToFeed(feed)">Subscribe</button>
+                <button *ngIf="feed.subscribed" class="btn btn-danger" (click)="unsubscribeFromFeed(feed)">Unsubscribe</button>
+            </p>
+            <hr/>
+        </div>
+    </div>
+</div>
