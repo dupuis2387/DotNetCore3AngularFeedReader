@@ -3,7 +3,7 @@
 
 # A simple full stack demo/portfolio app
 
-DB: Sqlite
+DB: Sqlite with Entity Framework Core
 
 Server Stack: .net core 3 mvc
 
@@ -39,5 +39,6 @@ Authentication: JWT
 
 6. Be able to pull down the source, hit F5 in Visual Studio and the solution should run with all databases created and populated. ✅ Done
 
-7. It is NOT expected that this will be an enterprise ready web application. ✅ Done (this was built over the course of 2 days, as of 4/14/2020. Some brain cells were sacrified to the cause.)
+7. It is NOT expected that this will be an enterprise ready web application. ✅ Done 
+(this was built over the course of 2 days, as of 4/14/2020. Some brain cells were sacrified to the cause.)
 
