@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { IFeed } from "../data/entities/IFeed";
@@ -71,13 +71,13 @@ export class DataService {
     //get our token from our secret hiding place
     const jwtToken = JSON.parse(localStorage.getItem("jwtToken"));
 
+    const httpOptions = {
+      headers: new HttpHeaders().set("Authorization", "Bearer " + jwtToken.token),
+      params: new HttpParams().set("feedId", feedId) 
+    };
+
     return this.http
-      .post("/api/feed/unsubscribe",
-        feedId,
-        {
-          headers:
-            new HttpHeaders().set("Authorization", "Bearer " + jwtToken.token)
-        })
+      .delete("/api/feed/unsubscribe", httpOptions)
       .pipe(
         map((data: boolean) => {
           return data;

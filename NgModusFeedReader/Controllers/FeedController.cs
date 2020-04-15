@@ -82,17 +82,19 @@ namespace NgModusFeedReader.Controllers
         }
 
 
-        //Note: I know this should be HttpDelete but I think there's breaking changed in AspnetCore 3 that
-        //seemingly dont allow this to work. So, I'm cheating, to not waste more time
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Unsubscribe([FromBody] int feedId)
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> Unsubscribe([FromQuery] int feedId)
         {
+
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var result = _feedManagementService.Unubscribe(feedId, user.Id);
             if (!result)
                 return BadRequest();
             else
                 return Ok();
+
+
+            
         }
 
         [HttpGet("[action]")]
