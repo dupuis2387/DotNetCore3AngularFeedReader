@@ -42,3 +42,7 @@ Authentication: JWT
 7. It is NOT expected that this will be an enterprise ready web application. ✅ Done 
 (this was built over the course of 2 days, as of 4/14/2020. Some brain cells were sacrified to the cause.)
 
+# Additional misc resources
+https://github.com/dupuis2387/EmailMagic
+https://hubpages.com/technology/Dynamic-email-images-and-other-fancy-analytical-features-that-you-can-easilyDIY
+
