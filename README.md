@@ -44,5 +44,6 @@ Authentication: JWT
 
 # Additional misc resources
 https://github.com/dupuis2387/EmailMagic
+
 https://hubpages.com/technology/Dynamic-email-images-and-other-fancy-analytical-features-that-you-can-easilyDIY
 
