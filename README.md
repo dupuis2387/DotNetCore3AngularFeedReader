@@ -43,7 +43,8 @@ Authentication: JWT
 (this was built over the course of 2 days, as of 4/14/2020. Some brain cells were sacrified to the cause.)
 
 # Additional misc resources
-https://github.com/dupuis2387/EmailMagic
 
 https://hubpages.com/technology/Dynamic-email-images-and-other-fancy-analytical-features-that-you-can-easilyDIY
+
+https://medium.com/@dupuis2387/dynamic-images-in-emails-and-other-fancy-analytical-features-that-you-can-easily-diy-28b5dc3a96f0
 
